@@ -1,38 +1,34 @@
 package com.example.devoir_jsf.dao;
 
 import com.example.devoir_jsf.model.Employee;
-
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.PersistenceContext;
 import java.util.List;
-@Named
-@RequestScoped
+
 public class EmployeeDao {
 
-    private EntityManager em;
+    private EntityManager entityManager;
 
     public EmployeeDao() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("devoirPersistenceUnit");
-        this.em = emf.createEntityManager();
-    }
-
-    public void save(Employee employee) {
-        em.persist(employee);
-    }
-
-    public Employee findById(Long id) {
-        return em.find(Employee.class, id);
+        this.entityManager = emf.createEntityManager();
     }
 
     public List<Employee> findAll() {
-        return em.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
+        return entityManager.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
     }
 
-    public void delete(Employee employee) {
-        em.remove(em.contains(employee) ? employee : em.merge(employee));
+    public Employee findById(Long id) {
+        return entityManager.find(Employee.class, id);
+    }
+
+    // Implement save and delete as needed, following the pattern from ProjectContributionDao
+    // Remember to manage transactions appropriately
+
+    public void close() {
+        if (entityManager != null) {
+            entityManager.close();
+        }
     }
 }

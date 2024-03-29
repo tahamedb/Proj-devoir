@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Assign Employee to Project</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h1>Assign Employee to Project</h1>
+
+        <!-- Employee Selection -->
+        <h:outputLabel for="employeeSelect" value="Select Employee:" />
+        <h:selectOneMenu id="employeeSelect" value="#{employeeProjectBean.selectedEmployeeId}">
+            <f:selectItem itemLabel="Select Employee" itemValue="" noSelectionOption="true"/>
+            <f:selectItems value="#{employeeProjectBean.employees}" var="employee"
+                           itemValue="#{employee.id}" itemLabel="#{employee.name}" />
+        </h:selectOneMenu>
+
+        <!-- Project Selection -->
+        <h:outputLabel for="projectSelect" value="Select Project:" />
+        <h:selectOneMenu id="projectSelect" value="#{employeeProjectBean.selectedProjectId}">
+            <f:selectItem itemLabel="Select Project" itemValue="" noSelectionOption="true"/>
+            <f:selectItems value="#{employeeProjectBean.projects}" var="project"
+                           itemValue="#{project.id}" itemLabel="#{project.name}" />
+        </h:selectOneMenu>
+
+        <!-- Contribution Percentage -->
+        <h:outputLabel for="contributionInput" value="Contribution Percentage:" />
+        <h:inputText id="contributionInput" value="#{employeeProjectBean.contributionPercentage}" >
+            <f:convertNumber integerOnly="false" />
+        </h:inputText>
+        <h:outputText value="%" />
+
+        <!-- Submit Button -->
+        <h:commandButton value="Assign" action="#{employeeProjectBean.assignEmployeeToProject}" />
+    </h:form>
+</h:body>
+</html>
