@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+   <title>Assign Employee to Project</title>
+</h:head>
+<h:body>
+   <h:form>
+      <h:selectOneMenu value="#{assignmentBean.selectedEmployeeId}">
+         <f:selectItems value="#{assignmentBean.employees}" var="employee"
+                        itemValue="#{employee.id}" itemLabel="#{employee.name}"/>
+      </h:selectOneMenu>
+      <h:selectOneMenu value="#{assignmentBean.selectedProjectId}">
+         <f:selectItems value="#{assignmentBean.projects}" var="project"
+                        itemValue="#{project.id}" itemLabel="#{project.name}"/>
+      </h:selectOneMenu>
+      <h:inputText value="#{assignmentBean.contributionPercentage}"/>
+      <h:commandButton value="Assign" action="#{assignmentBean.assignEmployeeToProject}"/>
+   </h:form>
+</h:body>
+</html>
